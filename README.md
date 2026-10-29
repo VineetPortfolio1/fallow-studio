@@ -10,3 +10,10 @@ Single-file landing site for a boutique wellness studio. Open `index.html` in a 
 - Newsletter form: connect it to your email service (it is a demo)
 
 Fonts: Instrument Serif and Jost via Google Fonts.
+
+## Design source
+`design/` holds the editable design canvas export from Claude Design:
+- `fallow-landing.dc.html`: the landing page artboard (design component source)
+- `canvas.json`: canvas layout (artboard size and settings)
+
+The `.dc.html` file needs the Claude Design editor to render and edit it. `index.html` is the standalone website built from it.
