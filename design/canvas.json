@@ -1,0 +1,27 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Artboard-8p2z.dc.html": {
+      "h": 8400,
+      "title": "Fallow landing page",
+      "w": 1440,
+      "x": 0,
+      "y": 0,
+      "expand": "fill",
+      "is_interactive": true
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-29T11:04:37.450Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {},
+  "notes": {},
+  "order": [
+    "Artboard-8p2z.dc.html"
+  ],
+  "pages": [],
+  "title": "Fallow Studio"
+}
