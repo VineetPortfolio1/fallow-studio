@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fallow Studio</title>
+<meta name="description" content="Fallow is a boutique studio for holistic strength and recovery. Book a free intro class.">
+<style>body{margin:0;background:#1c1b18}</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Jost:wght@300;400;500;600&display=swap">
+<style>
+:root { --char:#1c1b18; --char2:#26241f; --cream:#f0e9d8; --cream2:#e6dcc4; --olive:#5c6735; --olive-lt:#b4bd86; --muted-d:#b9b2a0; --muted-l:#4f4b40; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #1c1b18; }
+a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible { outline: 2px solid #b4bd86; outline-offset: 4px; border-radius: 6px; }
+.serif { font-family: 'Instrument Serif', 'Times New Roman', serif; font-weight: 400; }
+
+/* load + scroll motion */
+@keyframes rise { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: none; } }
+@keyframes drift { from { transform: scale(1.04) translate3d(0,0,0); } to { transform: scale(1.16) translate3d(-2%,-3%,0); } }
+@keyframes breathe { 0%,100% { opacity: .55; } 50% { opacity: .9; } }
+.load { animation: rise 1s cubic-bezier(.2,.7,.2,1) both; }
+.drift { animation: drift 22s ease-in-out infinite alternate; }
+.breathe { animation: breathe 9s ease-in-out infinite; }
+@supports (animation-timeline: view()) {
+  .reveal { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
+}
+
+/* nav */
+.nav-link { position: relative; padding: 10px 2px; font-size: 15px; letter-spacing: .02em; }
+.nav-link::after { content: ''; position: absolute; left: 0; right: 0; bottom: 4px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .35s ease; }
+.nav-link:hover::after { transform: scaleX(1); }
+
+/* buttons */
+.btn { display: inline-flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 28px; border-radius: 999px; font-size: 16px; font-weight: 500; letter-spacing: .01em; border: 1px solid transparent; cursor: pointer; transition: background .3s ease, color .3s ease, transform .3s ease, border-color .3s ease; }
+.btn .arr { display: inline-block; transition: transform .3s ease; }
+.btn:hover .arr { transform: translateX(5px); }
+.btn:active { transform: scale(.98); }
+.btn-cream { background: #f0e9d8; color: #1c1b18; }
+.btn-cream:hover { background: #b4bd86; }
+.btn-olive { background: #b4bd86; color: #1c1b18; }
+.btn-olive:hover { background: #f0e9d8; }
+.btn-ghost { border-color: rgba(240,233,216,.45); color: #f0e9d8; background: transparent; }
+.btn-ghost:hover { border-color: #f0e9d8; background: rgba(240,233,216,.08); }
+
+/* service cards */
+.svc { display: flex; flex-direction: column; justify-content: space-between; gap: 72px; min-height: 440px; padding: 40px; border-radius: 28px; background: #e6dcc4; color: #1c1b18; box-sizing: border-box; transition: transform .5s cubic-bezier(.2,.7,.2,1), background .5s ease, color .5s ease, box-shadow .5s ease; }
+.svc p { margin: 0; color: #4f4b40; transition: color .5s ease; }
+.svc .ico { width: 64px; height: 64px; border-radius: 50%; border: 1px solid rgba(28,27,24,.35); display: grid; place-items: center; transition: transform .6s cubic-bezier(.2,.7,.2,1), background .5s ease, border-color .5s ease, color .5s ease; }
+.svc .more { display: inline-flex; align-items: center; gap: 10px; margin-top: 28px; font-weight: 500; font-size: 15px; letter-spacing: .02em; }
+.svc .more span { display: inline-block; transition: transform .4s ease; }
+.svc:hover { transform: translateY(-12px); background: #1c1b18; color: #f0e9d8; box-shadow: 0 40px 60px -30px rgba(28,27,24,.55); }
+.svc:hover p { color: #cfc8b4; }
+.svc:hover .ico { transform: rotate(-14deg) scale(1.06); background: #b4bd86; border-color: #b4bd86; color: #1c1b18; }
+.svc:hover .more span { transform: translateX(8px); }
+@media (min-width: 980px) { .svc.lower { margin-top: 64px; } }
+
+/* carousel buttons */
+.round { width: 52px; height: 52px; border-radius: 50%; border: 1px solid rgba(240,233,216,.4); background: transparent; color: #f0e9d8; display: grid; place-items: center; cursor: pointer; transition: background .3s ease, color .3s ease, border-color .3s ease; }
+.round:hover { background: #f0e9d8; color: #1c1b18; border-color: #f0e9d8; }
+.dot { height: 44px; padding: 0; border: 0; background: transparent; display: flex; align-items: center; cursor: pointer; }
+
+/* footer */
+.lnk { display: inline-block; padding: 8px 0; color: #b9b2a0; transition: color .25s ease, transform .25s ease; }
+.lnk:hover { color: #f0e9d8; transform: translateX(4px); }
+
+/* goal tiles */
+.tile { position: relative; display: block; overflow: hidden; aspect-ratio: 4 / 5; border-radius: 999px 999px 22px 22px; color: #f0e9d8; isolation: isolate; }
+.tile .bg { position: absolute; inset: 0; z-index: -2; transition: transform .9s cubic-bezier(.2,.7,.2,1); }
+.tile::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(28,27,24,0) 38%, rgba(28,27,24,.85) 100%); }
+.tile:hover .bg { transform: scale(1.12) rotate(1.5deg); }
+.tile .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 14px 26px; text-align: center; }
+.tile .cap > span { display: block; transition: transform .45s ease; }
+.tile:hover .cap > span { transform: translateY(-5px); }
+
+/* class rail */
+.chip { min-height: 44px; padding: 0 22px; border-radius: 999px; border: 1px solid rgba(240,233,216,.4); background: transparent; color: #f0e9d8; font: inherit; font-size: 15px; cursor: pointer; transition: background .3s ease, color .3s ease, border-color .3s ease; }
+.chip:hover { border-color: #f0e9d8; }
+.rail { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 4px 28px; margin: 0 -4px; scrollbar-width: thin; scrollbar-color: #b4bd86 transparent; }
+.rail > * { scroll-snap-align: start; flex: 0 0 min(320px, 82%); }
+.cls { display: flex; flex-direction: column; gap: 20px; padding: 14px 14px 26px; border-radius: 26px; background: #26241f; border: 1px solid rgba(240,233,216,.1); transition: transform .5s cubic-bezier(.2,.7,.2,1), background .4s ease, border-color .4s ease; }
+.cls:hover { transform: translateY(-8px); background: #2e2b25; border-color: rgba(180,189,134,.55); }
+.cls .slotbg { transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+.cls:hover .slotbg { transform: scale(1.08); }
+
+/* plans */
+.btn-dark { background: #1c1b18; color: #f0e9d8; }
+.btn-dark:hover { background: #5c6735; }
+.plan { position: relative; display: flex; flex-direction: column; gap: 24px; padding: 40px 36px; border-radius: 28px; background: #e6dcc4; color: #1c1b18; transition: transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease; }
+.plan:hover { transform: translateY(-10px); box-shadow: 0 40px 60px -34px rgba(28,27,24,.5); }
+.plan.featured { background: #1c1b18; color: #f0e9d8; }
+.plan ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.plan li { display: flex; align-items: flex-start; gap: 12px; }
+.plan li svg { flex: none; margin-top: 5px; }
+
+/* teachers */
+.person .ph { position: relative; aspect-ratio: 3 / 4; border-radius: 22px; overflow: hidden; }
+.person .ph .bg { position: absolute; inset: 0; transition: transform .9s cubic-bezier(.2,.7,.2,1); }
+.person:hover .ph .bg { transform: scale(1.08); }
+
+/* faq */
+.faq { border-bottom: 1px solid rgba(240,233,216,.18); }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 44px; padding: 28px 0; cursor: pointer; list-style: none; font-family: 'Instrument Serif', 'Times New Roman', serif; font-size: clamp(1.5rem, 2.6vw, 2.1rem); line-height: 1.15; transition: color .3s ease; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary:hover { color: #b4bd86; }
+.faq summary::after { content: '+'; flex: none; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(240,233,216,.4); font-family: 'Jost', sans-serif; font-size: 24px; font-weight: 300; transition: transform .4s ease, background .3s ease, color .3s ease, border-color .3s ease; }
+.faq[open] summary::after { transform: rotate(45deg); background: #b4bd86; color: #1c1b18; border-color: #b4bd86; }
+.faq p { margin: 0 0 28px; max-width: 620px; color: #b9b2a0; }
+
+/* newsletter field */
+.field { flex: 1 1 240px; min-height: 52px; padding: 0 22px; border-radius: 999px; border: 1px solid rgba(240,233,216,.4); background: transparent; color: #f0e9d8; font: inherit; font-size: 16px; }
+.field::placeholder { color: #b9b2a0; }
+.field:focus-visible { outline: 2px solid #b4bd86; outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (max-width: 760px) { .nav-links { display: none !important; } }
+@media (prefers-reduced-motion: reduce) { .load, .drift, .breathe, .reveal { animation: none !important; } .svc, .btn, .btn .arr { transition: none; } html { scroll-behavior: auto; } }
+
+:root { color-scheme: dark; }
+.q { grid-area: 1 / 1; margin: 0; opacity: 0; transform: translateY(20px); visibility: hidden; transition: opacity .4s ease, transform .4s ease, visibility 0s linear .4s; }
+.q.on { opacity: 1; transform: none; visibility: visible; transition: opacity .6s ease .15s, transform .7s cubic-bezier(.2,.7,.2,1) .15s, visibility 0s; }
+.dot .bar { display: block; height: 3px; width: 16px; border-radius: 3px; background: rgba(240,233,216,.5); transition: width .4s ease, background .4s ease; }
+.dot[aria-current="true"] .bar { width: 44px; background: #b4bd86; }
+.chip[aria-pressed="true"] { background: #f0e9d8; color: #1c1b18; border-color: #f0e9d8; }
+.cls[hidden] { display: none; }
+nav[aria-label="Primary"] > a { min-width: 0; }
+@media (max-width: 480px) { nav[aria-label="Primary"] .btn { padding: 0 16px; font-size: 14px; } }
+@media (prefers-reduced-motion: reduce) { .q, .q.on, .dot .bar { transition: none; } }
+</style>
+<div style="background: #1c1b18; color: #f0e9d8; font-family: 'Jost', 'Avenir Next', 'Segoe UI', sans-serif; font-size: 17px; line-height: 1.6; overflow: hidden;">
+
+  <!-- NAV + HERO -->
+  <header style="padding: 0 clamp(20px, 5vw, 72px);">
+    <div style="max-width: 1296px; margin: 0 auto;">
+
+      <nav aria-label="Primary" style="display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 0;">
+        <a href="#top" aria-label="Fallow Studio home" style="display: inline-flex; align-items: center; gap: 12px;">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true"><circle cx="15" cy="15" r="14" stroke="#b4bd86" stroke-width="1.2"/><path d="M5 20c4-9 11-12 20-11-1 9-8 14-17 12" stroke="#f0e9d8" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <span class="serif" style="font-size: 2.1rem; line-height: 1; letter-spacing: -0.01em; font-style: italic;">Fallow</span>
+        </a>
+        <div class="nav-links" style="display: flex; align-items: center; gap: 36px;">
+          <a class="nav-link" href="#practices">Practices</a>
+          <a class="nav-link" href="#classes">Classes</a>
+          <a class="nav-link" href="#pricing">Pricing</a>
+          <a class="nav-link" href="#faq">FAQ</a>
+        </div>
+        <a class="btn btn-cream" href="#book" style="min-height: 48px; padding: 0 24px;">Book a free intro <span class="arr" aria-hidden="true">→</span></a>
+      </nav>
+
+      <div id="top" style="padding-top: clamp(20px, 4vw, 48px);">
+        <p class="load" style="margin: 0 0 20px; font-size: 13px; letter-spacing: .24em; text-transform: uppercase; color: #b4bd86; animation-delay: .05s;">Holistic strength &amp; recovery studio</p>
+
+        <div style="display: grid; grid-template-columns: minmax(0, 1fr);">
+          <div class="load" style="grid-area: 1 / 1; justify-self: end; width: min(100%, 780px); height: clamp(540px, 62vw, 780px); border-radius: 999px 999px 28px 28px; overflow: hidden; position: relative; background: #1c1b18; animation-delay: .15s;">
+            <div class="drift" style="position: absolute; inset: -6%; background: radial-gradient(60% 42% at 62% 14%, rgba(232,214,160,.75), rgba(232,214,160,0) 70%), radial-gradient(90% 60% at 12% 92%, rgba(122,136,70,.95), rgba(122,136,70,0) 68%), radial-gradient(70% 55% at 95% 70%, rgba(92,103,53,.6), rgba(92,103,53,0) 70%), linear-gradient(172deg, #3c4226 0%, #23251a 55%, #1c1b18 100%);"></div>
+            <div class="breathe" style="position: absolute; inset: 0; background: repeating-linear-gradient(108deg, rgba(255,244,210,.07) 0 2px, rgba(255,244,210,0) 2px 72px); mask-image: linear-gradient(180deg, #000 0%, transparent 70%); -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 70%);"></div>
+            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(28,27,24,0) 45%, rgba(28,27,24,.75) 100%);"></div>
+            <p style="position: absolute; top: 24px; right: 28px; margin: 0; padding: 6px 14px; border: 1px solid rgba(240,233,216,.4); border-radius: 999px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #f0e9d8; background: rgba(28,27,24,.45);">Hero image slot · 1600 × 1200</p>
+          </div>
+
+          <h1 class="serif load" style="grid-area: 1 / 1; align-self: end; justify-self: start; position: relative; z-index: 2; margin: 0 0 clamp(24px, 4vw, 56px); font-size: clamp(3.4rem, 10.6vw, 9.6rem); line-height: .92; letter-spacing: -0.03em; font-weight: 400; color: #f0e9d8; animation-delay: .3s;">Strength,<br><em style="color: #d9e0b4;">taken slowly.</em></h1>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 32px; margin-top: clamp(32px, 5vw, 56px);">
+          <div class="load" style="max-width: 460px; animation-delay: .5s;">
+            <p style="margin: 0 0 32px; font-size: 1.1875rem; color: #d6cfbb;">Fallow is a boutique studio for people whose calendars are full and whose bodies are quietly asking for more. Reformer strength, breathwork and deep recovery, held in unhurried rooms.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 14px;">
+              <a class="btn btn-olive" href="#book">Book your free intro class <span class="arr" aria-hidden="true">→</span></a>
+              <a class="btn btn-ghost" href="#practices">See the practices</a>
+            </div>
+          </div>
+          <a class="load" href="#practices" style="display: inline-flex; align-items: center; gap: 12px; color: #b9b2a0; font-size: 14px; letter-spacing: .18em; text-transform: uppercase; padding: 12px 0; animation-delay: .65s;">Scroll <span aria-hidden="true" style="display: inline-block; width: 56px; height: 1px; background: currentColor;"></span></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- TRUST STRIP -->
+  <section aria-label="Why Fallow" style="margin-top: clamp(72px, 9vw, 128px); padding: 0 clamp(20px, 5vw, 72px) clamp(72px, 9vw, 128px);">
+    <div class="reveal" style="max-width: 1296px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 32px 40px; padding: 36px 0; border-top: 1px solid rgba(240,233,216,.15); border-bottom: 1px solid rgba(240,233,216,.15);">
+      <div style="display: flex; align-items: flex-start; gap: 16px;">
+        <span style="flex: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid #b4bd86; color: #b4bd86; display: grid; place-items: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="8" width="17" height="12" rx="2"/><path d="M12 8v12M3.5 12.5h17M12 8c-1.5-3-5-3.5-5-1.2C7 8.2 9 8 12 8zm0 0c1.5-3 5-3.5 5-1.2 0 1.4-2 1.2-5 1.2z"/></svg></span>
+        <div><p style="margin: 0; font-weight: 500;">Free first class</p><p style="margin: 2px 0 0; font-size: 15px; color: #b9b2a0;">Your intro is on us.</p></div>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 16px;">
+        <span style="flex: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid #b4bd86; color: #b4bd86; display: grid; place-items: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9.5" r="2.4"/><path d="M3 19c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5M16 14.2c2.8 0 5 1.8 5 4.8"/></svg></span>
+        <div><p style="margin: 0; font-weight: 500;">Small groups</p><p style="margin: 2px 0 0; font-size: 15px; color: #b9b2a0;">Room to be seen, never crowded.</p></div>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 16px;">
+        <span style="flex: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid #b4bd86; color: #b4bd86; display: grid; place-items: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4h-4"/><path d="M12 8v4l2.5 1.5"/></svg></span>
+        <div><p style="margin: 0; font-weight: 500;">Reschedule with ease</p><p style="margin: 2px 0 0; font-size: 15px; color: #b9b2a0;">Life moves. Your booking can too.</p></div>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 16px;">
+        <span style="flex: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid #b4bd86; color: #b4bd86; display: grid; place-items: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.3 6.8 19.1l1-5.8L3.5 9.2l5.9-.8z"/></svg></span>
+        <div><p style="margin: 0; font-weight: 500;">Teacher-led, always</p><p style="margin: 2px 0 0; font-size: 15px; color: #b9b2a0;">Hands-on guidance in every class.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRACTICES -->
+  <section id="practices" style="margin-top: 0; padding: clamp(80px, 10vw, 148px) clamp(20px, 5vw, 72px) clamp(56px, 7vw, 96px); background: #f0e9d8; color: #1c1b18; border-radius: clamp(32px, 5vw, 72px) clamp(32px, 5vw, 72px) 0 0;">
+    <div style="max-width: 1296px; margin: 0 auto;">
+      <div class="reveal" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 32px 64px; margin-bottom: clamp(48px, 6vw, 88px);">
+        <h2 class="serif" style="margin: 0; max-width: 760px; font-size: clamp(2.8rem, 6.4vw, 5.6rem); line-height: .98; letter-spacing: -0.025em; font-weight: 400;">Three rooms for <em style="color: #5c6735;">coming back</em> to yourself.</h2>
+        <p style="margin: 0; max-width: 360px; color: #4f4b40;">Every practice is led, never shouted. Choose one, or move between all three across your week.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 28px; align-items: start;">
+        <article class="svc reveal">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18"/><path d="M6 8v8M18 8v8"/><path d="M3.5 10v4M20.5 10v4"/></svg></div>
+            <span class="serif" style="font-size: 1.6rem; font-style: italic; opacity: .6;">01</span>
+          </div>
+          <div>
+            <h3 class="serif" style="margin: 0 0 14px; font-size: 2.4rem; line-height: 1; font-weight: 400; letter-spacing: -0.01em;">Reformer Strength</h3>
+            <p>Slow-tempo resistance work that builds the kind of strength you carry out of the room and into the week.</p>
+            <a class="more" href="#book">Explore <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+
+        <article class="svc lower reveal">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h10a3 3 0 1 0-3-3"/><path d="M3 14h15a3 3 0 1 1-3 3"/><path d="M3 19h5"/></svg></div>
+            <span class="serif" style="font-size: 1.6rem; font-style: italic; opacity: .6;">02</span>
+          </div>
+          <div>
+            <h3 class="serif" style="margin: 0 0 14px; font-size: 2.4rem; line-height: 1; font-weight: 400; letter-spacing: -0.01em;">Breath &amp; Mobility</h3>
+            <p>Guided breathwork flowing into long, held movement. Unclench the shoulders and lengthen the day.</p>
+            <a class="more" href="#book">Explore <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+
+        <article class="svc reveal">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></div>
+            <span class="serif" style="font-size: 1.6rem; font-style: italic; opacity: .6;">03</span>
+          </div>
+          <div>
+            <h3 class="serif" style="margin: 0 0 14px; font-size: 2.4rem; line-height: 1; font-weight: 400; letter-spacing: -0.01em;">Deep Recovery</h3>
+            <p>Heat, stillness and sound for the nervous system. Rest, scheduled like the real appointment it is.</p>
+            <a class="more" href="#book">Explore <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FIND YOUR PRACTICE (goal tiles) -->
+  <section id="goals" style="padding: 0 clamp(20px, 5vw, 72px) clamp(80px, 10vw, 148px); background: #f0e9d8; color: #1c1b18;">
+    <div style="max-width: 1296px; margin: 0 auto;">
+      <div class="reveal" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 48px; margin-bottom: clamp(32px, 4vw, 56px); padding-top: clamp(40px, 5vw, 72px); border-top: 1px solid rgba(28,27,24,.18);">
+        <div>
+          <p class="sec-label" style="color: #5c6735;">Find your practice</p>
+          <h2 class="serif" style="margin: 0; font-size: clamp(2.4rem, 5vw, 4.4rem); line-height: 1; letter-spacing: -0.02em; font-weight: 400;">Start from how you <em>want to feel.</em></h2>
+        </div>
+        <a class="more" href="#classes" style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 500; border-bottom: 1px solid #1c1b18;">See this week's classes <span aria-hidden="true">→</span></a>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 18px;">
+        <a class="tile reveal" href="#classes"><div class="bg" style="background: radial-gradient(80% 55% at 35% 18%, rgba(214,196,140,.6), transparent 65%), linear-gradient(160deg, #59652f, #23251a);"></div><div class="cap"><span class="serif" style="font-size: 1.7rem; line-height: 1.05;">Build strength</span><span style="margin-top: 6px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: #d9e0b4;">Reformer</span></div></a>
+        <a class="tile reveal" href="#classes"><div class="bg" style="background: radial-gradient(80% 55% at 68% 22%, rgba(236,200,150,.55), transparent 65%), linear-gradient(160deg, #80603c, #2a211a);"></div><div class="cap"><span class="serif" style="font-size: 1.7rem; line-height: 1.05;">Ease the back</span><span style="margin-top: 6px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: #ecd9bd;">Mobility</span></div></a>
+        <a class="tile reveal" href="#classes"><div class="bg" style="background: radial-gradient(80% 55% at 40% 20%, rgba(170,205,195,.5), transparent 65%), linear-gradient(160deg, #2f4e4a, #18211f);"></div><div class="cap"><span class="serif" style="font-size: 1.7rem; line-height: 1.05;">Sleep deeper</span><span style="margin-top: 6px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: #c8e0d8;">Recovery</span></div></a>
+        <a class="tile reveal" href="#classes"><div class="bg" style="background: radial-gradient(80% 55% at 60% 25%, rgba(200,214,150,.55), transparent 65%), linear-gradient(160deg, #6f7b3d, #262a19);"></div><div class="cap"><span class="serif" style="font-size: 1.7rem; line-height: 1.05;">Stress less</span><span style="margin-top: 6px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: #d9e0b4;">Breathwork</span></div></a>
+        <a class="tile reveal" href="#classes"><div class="bg" style="background: radial-gradient(80% 55% at 30% 24%, rgba(226,170,140,.5), transparent 65%), linear-gradient(160deg, #7a4a38, #271b17);"></div><div class="cap"><span class="serif" style="font-size: 1.7rem; line-height: 1.05;">Reset posture</span><span style="margin-top: 6px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: #f0cfc0;">Mobility</span></div></a>
+        <a class="tile reveal" href="#classes"><div class="bg" style="background: radial-gradient(80% 55% at 65% 18%, rgba(190,200,210,.45), transparent 65%), linear-gradient(160deg, #3d4a4f, #1a1f21);"></div><div class="cap"><span class="serif" style="font-size: 1.7rem; line-height: 1.05;">Recover well</span><span style="margin-top: 6px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: #d4dde2;">Heat &amp; stillness</span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- THIS WEEK'S CLASSES (filter + rail) -->
+  <section id="classes" style="padding: clamp(80px, 10vw, 148px) clamp(20px, 5vw, 72px) clamp(40px, 5vw, 72px); background: #1c1b18;">
+    <div style="max-width: 1296px; margin: 0 auto;">
+      <div class="reveal" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 32px 48px; margin-bottom: 40px;">
+        <div>
+          <p class="sec-label" style="color: #b4bd86;">The schedule</p>
+          <h2 class="serif" style="margin: 0; font-size: clamp(2.6rem, 5.6vw, 5rem); line-height: .98; letter-spacing: -0.025em; font-weight: 400;">This week <em style="color: #d9e0b4;">at Fallow.</em></h2>
+        </div>
+        <div role="group" aria-label="Filter classes" style="display: flex; flex-wrap: wrap; gap: 10px;">
+          <button class="chip" type="button" data-f="All" aria-pressed="true">All</button><button class="chip" type="button" data-f="Strength" aria-pressed="false">Strength</button><button class="chip" type="button" data-f="Mobility" aria-pressed="false">Mobility</button><button class="chip" type="button" data-f="Recovery" aria-pressed="false">Recovery</button>
+        </div>
+      </div>
+      <div class="rail" id="rail" tabindex="0" aria-label="Classes this week">
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMBERSHIPS -->
+  <section id="pricing" style="padding: clamp(80px, 10vw, 148px) clamp(20px, 5vw, 72px); background: #f0e9d8; color: #1c1b18; border-radius: clamp(32px, 5vw, 72px);">
+    <div style="max-width: 1296px; margin: 0 auto;">
+      <div class="reveal" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 32px 64px; margin-bottom: clamp(40px, 5vw, 72px);">
+        <div>
+          <p class="sec-label" style="color: #5c6735;">Memberships</p>
+          <h2 class="serif" style="margin: 0; max-width: 700px; font-size: clamp(2.6rem, 5.8vw, 5.2rem); line-height: .98; letter-spacing: -0.025em; font-weight: 400;">Simple ways to <em style="color: #5c6735;">keep coming back.</em></h2>
+        </div>
+        <p style="margin: 0; max-width: 340px; color: #4f4b40;">Every plan begins with your free intro class. Choose after you've felt it.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 24px; align-items: stretch;">
+        <article class="plan reveal">
+          <div>
+            <h3 class="serif" style="margin: 0 0 6px; font-size: 2.2rem; line-height: 1; font-weight: 400;">Single class</h3>
+            <p style="margin: 0; color: #4f4b40;">One class, any practice. The gentlest way in.</p>
+          </div>
+          <p class="serif" style="margin: 0; font-size: 3.6rem; line-height: 1; letter-spacing: -0.02em;">[PRICE] <span style="font-family: 'Jost', sans-serif; font-size: 1rem; letter-spacing: 0; color: #4f4b40;">/ class</span></p>
+          <ul>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5c6735" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Any practice, any room</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5c6735" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>No commitment</li>
+          </ul>
+          <a class="btn btn-dark" href="#book" style="margin-top: auto; justify-content: center;">Start with a free intro <span class="arr" aria-hidden="true">→</span></a>
+        </article>
+        <article class="plan featured reveal">
+          <span style="position: absolute; top: -14px; left: 36px; padding: 6px 16px; border-radius: 999px; background: #b4bd86; color: #1c1b18; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;">Best for regulars</span>
+          <div>
+            <h3 class="serif" style="margin: 0 0 6px; font-size: 2.2rem; line-height: 1; font-weight: 400;">Class pack</h3>
+            <p style="margin: 0; color: #cfc8b4;">A flexible bundle for a calendar that keeps changing.</p>
+          </div>
+          <p class="serif" style="margin: 0; font-size: 3.6rem; line-height: 1; letter-spacing: -0.02em;">[PRICE] <span style="font-family: 'Jost', sans-serif; font-size: 1rem; letter-spacing: 0; color: #cfc8b4;">/ [N] classes</span></p>
+          <ul>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b4bd86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>All three practices</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b4bd86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Priority booking</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b4bd86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Valid for [VALIDITY]</li>
+          </ul>
+          <a class="btn btn-olive" href="#book" style="margin-top: auto; justify-content: center;">Start with a free intro <span class="arr" aria-hidden="true">→</span></a>
+        </article>
+        <article class="plan reveal">
+          <div>
+            <h3 class="serif" style="margin: 0 0 6px; font-size: 2.2rem; line-height: 1; font-weight: 400;">Unlimited</h3>
+            <p style="margin: 0; color: #4f4b40;">For the ones who've made this part of the week.</p>
+          </div>
+          <p class="serif" style="margin: 0; font-size: 3.6rem; line-height: 1; letter-spacing: -0.02em;">[PRICE] <span style="font-family: 'Jost', sans-serif; font-size: 1rem; letter-spacing: 0; color: #4f4b40;">/ month</span></p>
+          <ul>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5c6735" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Unlimited classes</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5c6735" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Recovery room included</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5c6735" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Guest passes [N]</li>
+          </ul>
+          <a class="btn btn-dark" href="#book" style="margin-top: auto; justify-content: center;">Start with a free intro <span class="arr" aria-hidden="true">→</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEACHERS -->
+  <section id="teachers" style="padding: clamp(80px, 10vw, 148px) clamp(20px, 5vw, 72px); background: #1c1b18;">
+    <div style="max-width: 1296px; margin: 0 auto;">
+      <div class="reveal" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 64px; margin-bottom: clamp(40px, 5vw, 64px);">
+        <div>
+          <p class="sec-label" style="color: #b4bd86;">The teachers</p>
+          <h2 class="serif" style="margin: 0; font-size: clamp(2.6rem, 5.6vw, 5rem); line-height: .98; letter-spacing: -0.025em; font-weight: 400;">Led by people who <em style="color: #d9e0b4;">notice.</em></h2>
+        </div>
+        <p style="margin: 0; max-width: 340px; color: #b9b2a0;">Small rooms mean every teacher sees every body, and adjusts accordingly.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 24px;">
+        <article class="person reveal">
+          <div class="ph"><div class="bg" style="background: radial-gradient(70% 50% at 50% 22%, rgba(214,196,140,.55), transparent 65%), linear-gradient(170deg, #59652f, #1f2116);"></div><p style="position: absolute; left: 14px; bottom: 14px; margin: 0; padding: 4px 12px; border-radius: 999px; background: rgba(28,27,24,.6); font-size: 12px; letter-spacing: .12em; text-transform: uppercase;">Portrait slot</p></div>
+          <h3 class="serif" style="margin: 18px 0 2px; font-size: 1.9rem; line-height: 1.1; font-weight: 400;">[Teacher name]</h3>
+          <p style="margin: 0 0 6px; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: #b4bd86;">Reformer lead</p>
+          <p style="margin: 0; font-size: 15px; color: #b9b2a0;">[One line on their approach.]</p>
+        </article>
+        <article class="person reveal">
+          <div class="ph"><div class="bg" style="background: radial-gradient(70% 50% at 50% 22%, rgba(236,200,150,.5), transparent 65%), linear-gradient(170deg, #80603c, #231b15);"></div><p style="position: absolute; left: 14px; bottom: 14px; margin: 0; padding: 4px 12px; border-radius: 999px; background: rgba(28,27,24,.6); font-size: 12px; letter-spacing: .12em; text-transform: uppercase;">Portrait slot</p></div>
+          <h3 class="serif" style="margin: 18px 0 2px; font-size: 1.9rem; line-height: 1.1; font-weight: 400;">[Teacher name]</h3>
+          <p style="margin: 0 0 6px; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: #b4bd86;">Breathwork guide</p>
+          <p style="margin: 0; font-size: 15px; color: #b9b2a0;">[One line on their approach.]</p>
+        </article>
+        <article class="person reveal">
+          <div class="ph"><div class="bg" style="background: radial-gradient(70% 50% at 50% 22%, rgba(170,205,195,.5), transparent 65%), linear-gradient(170deg, #2f4e4a, #141b1a);"></div><p style="position: absolute; left: 14px; bottom: 14px; margin: 0; padding: 4px 12px; border-radius: 999px; background: rgba(28,27,24,.6); font-size: 12px; letter-spacing: .12em; text-transform: uppercase;">Portrait slot</p></div>
+          <h3 class="serif" style="margin: 18px 0 2px; font-size: 1.9rem; line-height: 1.1; font-weight: 400;">[Teacher name]</h3>
+          <p style="margin: 0 0 6px; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: #b4bd86;">Mobility coach</p>
+          <p style="margin: 0; font-size: 15px; color: #b9b2a0;">[One line on their approach.]</p>
+        </article>
+        <article class="person reveal">
+          <div class="ph"><div class="bg" style="background: radial-gradient(70% 50% at 50% 22%, rgba(226,170,140,.5), transparent 65%), linear-gradient(170deg, #7a4a38, #1f1613);"></div><p style="position: absolute; left: 14px; bottom: 14px; margin: 0; padding: 4px 12px; border-radius: 999px; background: rgba(28,27,24,.6); font-size: 12px; letter-spacing: .12em; text-transform: uppercase;">Portrait slot</p></div>
+          <h3 class="serif" style="margin: 18px 0 2px; font-size: 1.9rem; line-height: 1.1; font-weight: 400;">[Teacher name]</h3>
+          <p style="margin: 0 0 6px; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: #b4bd86;">Recovery host</p>
+          <p style="margin: 0; font-size: 15px; color: #b9b2a0;">[One line on their approach.]</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOICES -->
+  <section id="voices" style="padding: clamp(80px, 10vw, 148px) clamp(20px, 5vw, 72px); background: #26241f;">
+    <div style="max-width: 1296px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 48px clamp(40px, 8vw, 120px);">
+
+      <div class="reveal" style="flex: 0 1 220px; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; min-width: 200px;">
+        <div>
+          <p style="margin: 0 0 12px; font-size: 13px; letter-spacing: .24em; text-transform: uppercase; color: #b4bd86;">In their words</p>
+          <p class="serif" style="margin: 0; font-size: 3.4rem; line-height: 1; font-style: italic; color: #f0e9d8;" id="counter">01 / 03</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <button class="round" type="button" aria-label="Previous quote" id="prev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+          <button class="round" type="button" aria-label="Next quote" id="next"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+
+      <div class="reveal" style="flex: 1 1 480px; min-width: 0;">
+        <span class="serif" aria-hidden="true" style="display: block; font-size: 9rem; line-height: .6; height: 64px; color: #b4bd86;">“</span>
+        <div style="display: grid;" aria-live="polite">
+          <figure class="q on" data-i="0" aria-hidden="false">
+              <blockquote class="serif" style="margin: 0 0 36px; font-size: clamp(1.9rem, 3.8vw, 3.4rem); line-height: 1.12; letter-spacing: -0.01em; color: #f0e9d8; text-wrap: pretty;">I walked in expecting a workout. I walked out having actually exhaled for the first time in months.</blockquote>
+              <figcaption style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; font-size: 16px;"><span style="font-weight: 500; letter-spacing: .04em;">[Member name]</span><span style="color: #b9b2a0;">Product lead</span></figcaption>
+            </figure>
+<figure class="q" data-i="1" aria-hidden="true">
+              <blockquote class="serif" style="margin: 0 0 36px; font-size: clamp(1.9rem, 3.8vw, 3.4rem); line-height: 1.12; letter-spacing: -0.01em; color: #f0e9d8; text-wrap: pretty;">No mirrors, no shouting, no counting down. It is the one hour of my week that is entirely mine.</blockquote>
+              <figcaption style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; font-size: 16px;"><span style="font-weight: 500; letter-spacing: .04em;">[Member name]</span><span style="color: #b9b2a0;">Founder</span></figcaption>
+            </figure>
+<figure class="q" data-i="2" aria-hidden="true">
+              <blockquote class="serif" style="margin: 0 0 36px; font-size: clamp(1.9rem, 3.8vw, 3.4rem); line-height: 1.12; letter-spacing: -0.01em; color: #f0e9d8; text-wrap: pretty;">My back stopped complaining by week three. My calendar stopped running my life not long after.</blockquote>
+              <figcaption style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; font-size: 16px;"><span style="font-weight: 500; letter-spacing: .04em;">[Member name]</span><span style="color: #b9b2a0;">Consultant</span></figcaption>
+            </figure>
+
+        </div>
+        <div style="display: flex; align-items: center; gap: 4px; margin-top: 40px;">
+          <button class="dot" type="button" data-i="0" aria-label="Show quote 1" aria-current="true"><span class="bar"></span></button><button class="dot" type="button" data-i="1" aria-label="Show quote 2"><span class="bar"></span></button><button class="dot" type="button" data-i="2" aria-label="Show quote 3"><span class="bar"></span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="padding: clamp(80px, 10vw, 148px) clamp(20px, 5vw, 72px); background: #1c1b18;">
+    <div style="max-width: 1296px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 48px clamp(40px, 8vw, 120px);">
+      <div class="reveal" style="flex: 1 1 320px; max-width: 420px;">
+        <p class="sec-label" style="color: #b4bd86;">Good to know</p>
+        <h2 class="serif" style="margin: 0 0 20px; font-size: clamp(2.6rem, 5vw, 4.4rem); line-height: 1; letter-spacing: -0.02em; font-weight: 400;">Questions, <em style="color: #d9e0b4;">answered.</em></h2>
+        <p style="margin: 0; color: #b9b2a0;">Something else on your mind? Say hello when you book and we'll point you to the right class.</p>
+      </div>
+      <div class="reveal" style="flex: 2 1 520px; min-width: 0; border-top: 1px solid rgba(240,233,216,.18);">
+        <details class="faq" open>
+          <summary>Do I need any experience?</summary>
+          <p>None at all. Every practice has a gentle way in, and teachers adapt each movement to your body on the day.</p>
+        </details>
+        <details class="faq">
+          <summary>What happens in the free intro class?</summary>
+          <p>You'll meet the team, see the rooms and take a full class chosen with you. Tell us how you're feeling and we'll point you to the right one.</p>
+        </details>
+        <details class="faq">
+          <summary>What should I bring?</summary>
+          <p>Comfortable clothes and water. Grip socks and mats: [YOUR POLICY].</p>
+        </details>
+        <details class="faq">
+          <summary>Can I reschedule or cancel?</summary>
+          <p>[YOUR RESCHEDULING AND CANCELLATION POLICY]</p>
+        </details>
+        <details class="faq">
+          <summary>How big are the classes?</summary>
+          <p>Small by design: [CLASS SIZE], so every teacher can see every body in the room.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL BANNER -->
+  <section id="book" style="padding: 0 clamp(20px, 5vw, 72px) clamp(80px, 10vw, 148px); background: #1c1b18;">
+    <div class="reveal" style="max-width: 1296px; margin: 0 auto; position: relative; overflow: hidden; border-radius: clamp(28px, 4vw, 48px); padding: clamp(40px, 7vw, 104px); background: #5c6735; color: #f0e9d8; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 40px 64px;">
+      <div aria-hidden="true" style="position: absolute; right: -180px; top: -180px; width: 620px; height: 620px; border-radius: 50%; background: repeating-radial-gradient(circle at center, rgba(240,233,216,.22) 0 1px, rgba(240,233,216,0) 1px 34px); pointer-events: none;"></div>
+      <div style="position: relative; flex: 1 1 460px; max-width: 760px;">
+        <p style="margin: 0 0 20px; font-size: 13px; letter-spacing: .24em; text-transform: uppercase; color: #e3e8c8;">Your first class is on us</p>
+        <h2 class="serif" style="margin: 0; font-size: clamp(2.8rem, 6.6vw, 6rem); line-height: .96; letter-spacing: -0.03em; font-weight: 400;">Come as you are. <em>Leave a little lighter.</em></h2>
+      </div>
+      <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 18px; max-width: 320px;">
+        <p style="margin: 0; color: #f0e9d8;">Pick a time that suits your week. We'll take care of the rest.</p>
+        <a class="btn btn-cream" href="#book">Book your free intro <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="padding: clamp(56px, 7vw, 96px) clamp(20px, 5vw, 72px) 32px; background: #1c1b18; border-top: 1px solid rgba(240,233,216,.12);">
+    <div style="max-width: 1296px; margin: 0 auto;">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 64px; margin-bottom: clamp(48px, 6vw, 80px); padding-bottom: clamp(40px, 5vw, 64px); border-bottom: 1px solid rgba(240,233,216,.12);">
+        <div style="flex: 1 1 320px; max-width: 520px;">
+          <p class="serif" style="margin: 0 0 6px; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05;">Slow notes, <em style="color: #d9e0b4;">monthly.</em></p>
+          <p style="margin: 0; color: #b9b2a0;">Class news and the occasional good idea about rest. Nothing more.</p>
+        </div>
+        <form id="nl" style="flex: 1 1 380px; max-width: 520px; display: flex; flex-wrap: wrap; gap: 12px;">
+          <label class="sr" for="nl-email">Email address</label>
+          <input class="field" id="nl-email" type="email" placeholder="Your email address" autocomplete="email">
+          <button class="btn btn-cream" type="submit">Subscribe <span class="arr" aria-hidden="true">→</span></button>
+          <p id="nl-msg" role="status" style="flex-basis: 100%; margin: 0; min-height: 1.4em; font-size: 15px; color: #b4bd86;"></p>
+        </form>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 48px 64px;">
+        <div style="flex: 1 1 280px; max-width: 420px;">
+          <p class="serif" style="margin: 0 0 12px; font-size: 3.6rem; line-height: 1; font-style: italic;">Fallow</p>
+          <p style="margin: 0; color: #b9b2a0;">A studio for slow strength.</p>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 48px clamp(40px, 8vw, 112px);">
+          <nav aria-label="Footer">
+            <p style="margin: 0 0 10px; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: #b4bd86;">Explore</p>
+            <div style="display: flex; flex-direction: column;">
+              <a class="lnk" href="#practices">Practices</a>
+              <a class="lnk" href="#voices">Voices</a>
+              <a class="lnk" href="#book">Book a free intro</a>
+            </div>
+          </nav>
+          <nav aria-label="Social">
+            <p style="margin: 0 0 10px; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: #b4bd86;">Follow</p>
+            <div style="display: flex; flex-direction: column;">
+              <a class="lnk" href="#">Instagram</a>
+              <a class="lnk" href="#">YouTube</a>
+              <a class="lnk" href="#">Pinterest</a>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 32px; margin-top: 64px; padding-top: 24px; border-top: 1px solid rgba(240,233,216,.12); font-size: 14px; color: #b9b2a0;">
+        <span>© 2026 Fallow Studio. All rights reserved.</span>
+        <span style="display: flex; gap: 24px;"><a class="lnk" href="#" style="padding: 4px 0;">Privacy</a><a class="lnk" href="#" style="padding: 4px 0;">Terms</a></span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+<script>
+(function(){
+  var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  /* testimonials */
+  var qs=$$('.q'), dots=$$('.dot'), n=qs.length, cur=0;
+  function show(k){
+    cur=((k%n)+n)%n;
+    qs.forEach(function(q,i){q.classList.toggle('on',i===cur);q.setAttribute('aria-hidden',i===cur?'false':'true');});
+    dots.forEach(function(d,i){ if(i===cur) d.setAttribute('aria-current','true'); else d.removeAttribute('aria-current'); });
+    $('#counter').textContent='0'+(cur+1)+' / 0'+n;
+  }
+  $('#prev').addEventListener('click',function(){show(cur-1)});
+  $('#next').addEventListener('click',function(){show(cur+1)});
+  dots.forEach(function(d){d.addEventListener('click',function(){show(+d.dataset.i)})});
+
+  /* classes rail + filter */
+  var bg={
+    Strength:'radial-gradient(80% 60% at 30% 20%, rgba(214,196,140,.6), transparent 65%), linear-gradient(160deg, #59652f, #23251a)',
+    Mobility:'radial-gradient(80% 60% at 70% 25%, rgba(236,200,150,.55), transparent 65%), linear-gradient(160deg, #80603c, #2a211a)',
+    Recovery:'radial-gradient(80% 60% at 40% 20%, rgba(170,205,195,.5), transparent 65%), linear-gradient(160deg, #2f4e4a, #18211f)'
+  };
+  var classes=[
+    {name:'Reformer Foundations',tag:'Strength',level:'Beginner friendly'},
+    {name:'Morning Unfurl',tag:'Mobility',level:'All levels'},
+    {name:'Heat & Stillness',tag:'Recovery',level:'All levels'},
+    {name:'Reformer Sculpt',tag:'Strength',level:'Intermediate'},
+    {name:'Desk Posture Reset',tag:'Mobility',level:'All levels'},
+    {name:'Sundown Sound Bath',tag:'Recovery',level:'All levels'}
+  ];
+  var rail=$('#rail');
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+  rail.innerHTML=classes.map(function(k){
+    return '<article class="cls" data-tag="'+k.tag+'"><div style="position:relative;height:210px;border-radius:18px;overflow:hidden;"><div class="slotbg" style="position:absolute;inset:0;background:'+bg[k.tag]+';"></div><span style="position:absolute;top:14px;left:14px;padding:5px 14px;border-radius:999px;background:rgba(28,27,24,.6);border:1px solid rgba(240,233,216,.35);font-size:12px;letter-spacing:.14em;text-transform:uppercase;">'+k.tag+'</span></div>'+
+    '<div style="padding:0 12px;display:flex;flex-direction:column;gap:8px;flex:1;"><h3 class="serif" style="margin:0;font-size:2rem;line-height:1.05;font-weight:400;">'+esc(k.name)+'</h3><p style="margin:0;font-size:15px;color:#b9b2a0;">'+k.level+'</p><p style="margin:0 0 8px;font-size:15px;color:#d6cfbb;">[Day] \u00b7 [Time] \u00b7 [00] min</p><a href="#book" style="margin-top:auto;display:inline-flex;align-items:center;gap:10px;min-height:44px;font-weight:500;color:#b4bd86;">Try it free <span aria-hidden="true">\u2192</span></a></div></article>';
+  }).join('');
+  $$('.chip').forEach(function(c){
+    c.addEventListener('click',function(){
+      var f=c.dataset.f;
+      $$('.chip').forEach(function(x){x.setAttribute('aria-pressed',x===c?'true':'false')});
+      $$('.cls',rail).forEach(function(card){card.hidden=!(f==='All'||card.dataset.tag===f)});
+      rail.scrollLeft=0;
+    });
+  });
+
+  /* newsletter (demo) */
+  $('#nl').addEventListener('submit',function(e){
+    e.preventDefault();
+    var input=$('#nl-email'), msg=$('#nl-msg');
+    if(!input.value||!input.checkValidity()){msg.textContent='Enter a valid email address.';input.focus();return;}
+    msg.textContent='Thank you. This demo form is not connected to an email service yet.';
+    input.value='';
+  });
+})();
+</script>
+</body>
+</html>
